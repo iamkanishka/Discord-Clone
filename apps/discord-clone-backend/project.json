@@ -1,0 +1,24 @@
+{
+  "name": "discord-clone-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/discord-clone-backend/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "discord-clone-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "discord-clone-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "discord-clone-backend:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,84 @@
+{
+  "name": "discord-clone",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "discord-workspace",
+  "sourceRoot": "apps/discord-clone/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/discord-clone",
+        "index": "apps/discord-clone/src/index.html",
+        "browser": "apps/discord-clone/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/discord-clone/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/discord-clone/src/favicon.ico",
+          "apps/discord-clone/src/assets"
+        ],
+        "styles": ["apps/discord-clone/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/discord-clone/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/discord-clone/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "discord-clone:build:production"
+        },
+        "development": {
+          "buildTarget": "discord-clone:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/discord-clone/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "discord-clone:build"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "discord-clone:build",
+        "staticFilePath": "dist/apps/discord-clone/browser"
+      }
+    }
+  }
+}
